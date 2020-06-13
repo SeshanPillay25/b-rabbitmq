@@ -66,9 +66,10 @@ namespace BRabbitMQ.Infrastructure.Bus
                 _handlers.Add(eventName, new List<Type>());
             }
 
-            if(_handlers[eventName].Any(s => s.GetType() == handlerType))
+            if (_handlers[eventName].Any(s => s.GetType() == handlerType))
             {
-                throw new ArgumentException();
+                throw new ArgumentException(
+                    $"Handler Type {handlerType.Name} is already registered for '{eventName}'", nameof(handlerType));
             }
 
             _handlers[eventName].Add(handlerType);
