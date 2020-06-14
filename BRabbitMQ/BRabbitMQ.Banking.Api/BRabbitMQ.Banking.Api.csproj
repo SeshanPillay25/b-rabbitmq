@@ -8,5 +8,15 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BRabbitMQ.Infrastructure.IoC\BRabbitMQ.Infrastructure.IoC.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="8.0.1" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+    </ItemGroup>
+
 
 </Project>
