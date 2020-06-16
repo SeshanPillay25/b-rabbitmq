@@ -5,9 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Interfaces" />
       <Folder Include="Models" />
-      <Folder Include="Services" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BRabbitMQ.Domain.Core\BRabbitMQ.Domain.Core.csproj" />
+      <ProjectReference Include="..\BRabbitMQ.Transfer.Domain\BRabbitMQ.Transfer.Domain.csproj" />
     </ItemGroup>
 
 </Project>

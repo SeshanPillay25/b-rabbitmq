@@ -5,7 +5,7 @@ using BRabbitMQ.Banking.Domain.Models;
 
 namespace BRabbitMQ.Banking.Application.Interfaces
 {
-    public interface IAccountService
+    public interface ITransferService
     {
         IEnumerable<Account> GetAccounts();
         void TransferFunds(AccountTransfer accountTransfer);

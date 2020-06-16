@@ -5,8 +5,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Context" />
-      <Folder Include="Repository" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BRabbitMQ.Transfer.Domain\BRabbitMQ.Transfer.Domain.csproj" />
     </ItemGroup>
 
 </Project>

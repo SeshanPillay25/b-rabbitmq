@@ -13,6 +13,8 @@
       <ProjectReference Include="..\BRabbitMQ.Banking.Data\BRabbitMQ.Banking.Data.csproj" />
       <ProjectReference Include="..\BRabbitMQ.Domain.Core\BRabbitMQ.Domain.Core.csproj" />
       <ProjectReference Include="..\BRabbitMQ.Infrastructure.Bus\BRabbitMQ.Infrastructure.Bus.csproj" />
+      <ProjectReference Include="..\BRabbitMQ.Transfer.Application\BRabbitMQ.Transfer.Application.csproj" />
+      <ProjectReference Include="..\BRabbitMQ.Transfer.Data\BRabbitMQ.Transfer.Data.csproj" />
     </ItemGroup>
 
 </Project>

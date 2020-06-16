@@ -5,7 +5,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
+      <PackageReference Include="MediatR" Version="8.0.1" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BRabbitMQ.Infrastructure.IoC\BRabbitMQ.Infrastructure.IoC.csproj" />
+      <ProjectReference Include="..\BRabbitMQ.Transfer.Data\BRabbitMQ.Transfer.Data.csproj" />
     </ItemGroup>
 
 
