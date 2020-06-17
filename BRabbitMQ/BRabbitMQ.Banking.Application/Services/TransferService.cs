@@ -8,14 +8,14 @@ using BRabbitMQ.Domain.Core.Bus;
 
 namespace BRabbitMQ.Banking.Application.Services
 {
-    public class AccountService : IAccountService
+    public class TransferService : ITransferService
     {
         //Injecting repository
         private readonly IAccountRepository _accountRepository;
         private readonly IEventBus _bus; 
             
 
-        public AccountService(IAccountRepository accountRepository, IEventBus bus)
+        public TransferService(IAccountRepository accountRepository, IEventBus bus)
         {
             _accountRepository = accountRepository;
             _bus = bus;

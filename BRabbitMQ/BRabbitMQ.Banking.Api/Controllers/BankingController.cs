@@ -12,24 +12,24 @@ namespace BRabbitMQ.Banking.API.Controllers
     public class BankingController : Controller
     {
         //Injecting account service
-        private readonly IAccountService _accountService;
+        private readonly ITransferService _transferService;
 
-        public BankingController(IAccountService accountService)
+        public BankingController(ITransferService transferService)
         {
-            _accountService = accountService;
+            _transferService = transferService;
         }
         
         //GET api/banking
         [HttpGet]
         public ActionResult<IEnumerable<Account>> Get()
         {
-            return Ok(_accountService.GetAccounts());
+            return Ok(_transferService.GetAccounts());
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] AccountTransfer accountTransfer)
         {
-            _accountService.TransferFunds(accountTransfer);
+            _transferService.TransferFunds(accountTransfer);
             return Ok(accountTransfer);
         }
     }
