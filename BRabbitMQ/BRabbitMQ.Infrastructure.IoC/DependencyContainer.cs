@@ -16,8 +16,6 @@ using BRabbitMQ.Transfer.Domain.Events;
 using BRabbitMQ.Transfer.Domain.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using ITransferService = BRabbitMQ.Banking.Application.Interfaces.ITransferService;
-using TransferService = BRabbitMQ.Banking.Application.Services.TransferService;
 
 namespace BRabbitMQ.Infrastructure.IoC
 {
@@ -35,8 +33,8 @@ namespace BRabbitMQ.Infrastructure.IoC
             services.AddTransient<IRequestHandler<CreateTransferCommand, bool>, TransferCommandHandler>();
             
             //Application layer
+            services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<ITransferService, TransferService>();
-            services.AddTransient<Transfer.Application.Interfaces.ITransferService, Transfer.Application.Services.TransferService>();
             
             //Data layer
             services.AddTransient<IAccountRepository, AccountRepository>();

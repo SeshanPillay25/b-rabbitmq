@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BRabbitMQ.Banking.Application.Interfaces;
 using BRabbitMQ.Banking.Application.Models;
 using BRabbitMQ.Banking.Domain.Models;
@@ -12,24 +11,24 @@ namespace BRabbitMQ.Banking.API.Controllers
     public class BankingController : Controller
     {
         //Injecting account service
-        private readonly ITransferService _transferService;
+        private readonly IAccountService _accountService;
 
-        public BankingController(ITransferService transferService)
+        public BankingController(IAccountService accountService)
         {
-            _transferService = transferService;
+            _accountService = accountService;
         }
         
         //GET api/banking
         [HttpGet]
         public ActionResult<IEnumerable<Account>> Get()
         {
-            return Ok(_transferService.GetAccounts());
+            return Ok(_accountService.GetAccounts());
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] AccountTransfer accountTransfer)
         {
-            _transferService.TransferFunds(accountTransfer);
+            _accountService.TransferFunds(accountTransfer);
             return Ok(accountTransfer);
         }
     }
