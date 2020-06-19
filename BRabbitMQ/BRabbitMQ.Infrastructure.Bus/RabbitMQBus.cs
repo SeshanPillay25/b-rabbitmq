@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using BRabbitMQ.Domain.Core.Bus;
 using BRabbitMQ.Domain.Core.Commands;
 using BRabbitMQ.Domain.Core.Events;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -19,10 +19,12 @@ namespace BRabbitMQ.Infrastructure.Bus
         private readonly IMediator _mediator;
         private readonly Dictionary<string, List<Type>> _handlers;
         private readonly List<Type> _eventTypes;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public RabbitMQBus(IMediator mediator)
+        public RabbitMQBus(IMediator mediator, IServiceScopeFactory serviceScopeFactory)
         {
             _mediator = mediator;
+            _serviceScopeFactory = serviceScopeFactory;
             _handlers = new Dictionary<string, List<Type>>();
             _eventTypes = new List<Type>();
         }
@@ -118,21 +120,24 @@ namespace BRabbitMQ.Infrastructure.Bus
         {
             if (_handlers.ContainsKey(eventName))
             {
-                var subs = _handlers[eventName];
-                foreach (var sub in subs)
+                using (var scope = _serviceScopeFactory.CreateScope())
                 {
-                    var handler = Activator.CreateInstance(sub);
-
-                    if (handler == null)
+                    var subs = _handlers[eventName];
+                    foreach (var sub in subs)
                     {
-                        continue;
-                    }
+                        var handler = scope.ServiceProvider.GetService(sub);
 
-                    var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
-                    var @event = JsonConvert.DeserializeObject(message, eventType);
-                    var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+                        if (handler == null)
+                        {
+                            continue;
+                        }
 
-                    await (Task) concreteType.GetMethod("Handle")?.Invoke(handler, new object?[] {@event});
+                        var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
+                        var @event = JsonConvert.DeserializeObject(message, eventType);
+                        var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
+
+                        await (Task) concreteType.GetMethod("Handle")?.Invoke(handler, new object?[] {@event});
+                    }  
                 }
             }
         }
